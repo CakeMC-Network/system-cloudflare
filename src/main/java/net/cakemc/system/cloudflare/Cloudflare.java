@@ -61,7 +61,7 @@ public final class Cloudflare {
 				             .header(HEADER_CONTENT, HEADER_CONTENT_VALUE)
 				             .header(HEADER_EMAIL, HEADER_EMAIL_VALUE)
 				             .header(HEADER_KEY, HEADER_KEY_VALUE)
-				             .method("PUT", ofBody("cakemc.net", "", Type.IPV4)).build(),
+				             .method("PUT", ofBody("cakemc.net", ipv4, Type.IPV4)).build(),
 				  HttpResponse.BodyHandlers.ofString()
 			 ),
 			 CLIENT.sendAsync(
@@ -70,7 +70,7 @@ public final class Cloudflare {
 				             .header(HEADER_CONTENT, HEADER_CONTENT_VALUE)
 				             .header(HEADER_EMAIL, HEADER_EMAIL_VALUE)
 				             .header(HEADER_KEY, HEADER_KEY_VALUE)
-				             .method("PUT", ofBody("cakemc.net", "", Type.IPV6)).build(),
+				             .method("PUT", ofBody("cakemc.net", ipv6, Type.IPV6)).build(),
 				  HttpResponse.BodyHandlers.ofString()
 			 ),
 
@@ -81,7 +81,16 @@ public final class Cloudflare {
 				             .header(HEADER_CONTENT, HEADER_CONTENT_VALUE)
 				             .header(HEADER_EMAIL, HEADER_EMAIL_VALUE)
 				             .header(HEADER_KEY, HEADER_KEY_VALUE)
-				             .method("PUT", ofBody("repo.cakemc.net", "", Type.IPV4)).build(),
+				             .method("PUT", ofBody("repo.cakemc.net", ipv4, Type.IPV4)).build(),
+				  HttpResponse.BodyHandlers.ofString()
+			 ),
+			 CLIENT.sendAsync(
+				  HttpRequest.newBuilder()
+				             .uri(URI.create("https://api.cloudflare.com/client/v4/zones/zone_id/dns_records/dns_record_id"))
+				             .header(HEADER_CONTENT, HEADER_CONTENT_VALUE)
+				             .header(HEADER_EMAIL, HEADER_EMAIL_VALUE)
+				             .header(HEADER_KEY, HEADER_KEY_VALUE)
+				             .method("PUT", ofBody("repo.cakemc.net", ipv6, Type.IPV6)).build(),
 				  HttpResponse.BodyHandlers.ofString()
 			 )
 		).map(CompletableFuture::join).forEach(response -> {

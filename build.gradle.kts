@@ -14,13 +14,14 @@ plugins {
 }
 
 group = "net.cakemc.system"
-version = "0.0.0-develop" // TODO: ... | add proper versioning
+version = "0.0.0-develop"
 
 val repoProperties = Properties()
-repoProperties.load(file("credentials.properties").inputStream())
-
+val repoFile = file("credentials.properties")
+if (repoFile.exists())
+  repoProperties.load(repoFile.inputStream())
 val repoUsername: String = (repoProperties["username"] ?: System.getenv("REPOSITORY_USERNAME")).toString()
-val repoPassword: String = (repoProperties["username"] ?: System.getenv("REPOSITORY_PASSWORD")).toString()
+val repoPassword: String = (repoProperties["password"] ?: System.getenv("REPOSITORY_PASSWORD")).toString()
 
 repositories {
   mavenLocal()
